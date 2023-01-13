@@ -139,6 +139,12 @@
         });
 
         function init() {
+            let
+                $focus = $('#focus'),
+                $focusIndex = $focus.find('span.index'),
+                $focusSymbol = $focus.find('span.symbol'),
+                $focusName = $focus.find('h3'),
+                $focusQuality = $focus.find('span.quality');
             $('table.periodic td.element').each(function () {
                 let
                     $td = $(this),
@@ -148,21 +154,26 @@
                         name = element[0],
                         symbol = element[1],
                         category = element[2],
-                        quality = element[3],
-                        name2 = '';
-                    if (name.substring(0, 1) === '钅') {
-                        name2 = name.substring(1);
-                        name = name.substring(0, 1);
-                    }
+                        quality = element[3];
                     $td.addClass(category);
                     $td.append(`
                         <span class="index">${index}</span>
                         <span class="symbol">${symbol}</span>
                         <h3>
                             ${name}
-                            <span class="right">${name2}</span>
                         </h3>
                     `);
+                    let bgColor = $td.css('background-color');
+                    $td.mouseenter(function () {
+                        $focusIndex.text(index);
+                        $focusSymbol.text(symbol);
+                        $focusName.text(name);
+                        $focusQuality.text(quality);
+                        $focus.css('background-color', bgColor);
+                    });
+                    if (index === 1) {
+                        $td.trigger('mouseenter');
+                    }
                 }
             });
         }
@@ -186,7 +197,40 @@
         table.periodic tr td.element {
             width: 56px;
             padding: 5px;
+            border-radius: 4px;
             border: 1px solid #999;
+            cursor: pointer;
+        }
+
+        table.periodic tr td.element:hover {
+            opacity: 0.8;
+            box-shadow: 0 0 0 3px rgb(153 153 153 / 25%);
+        }
+
+        div.element {
+            display: block;
+            width: 64px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #999;
+        }
+
+        .element h3 {
+            margin: 30px 0 5px 0;
+            position: relative;
+            display: block;
+        }
+
+        .element span.index {
+            display: block;
+            float: left;
+            margin: 3px 0 0 3px;
+        }
+
+        .element span.symbol {
+            display: block;
+            float: right;
+            margin: 3px 3px 0 0;
         }
 
         table.periodic tr td.element.non-metals {
@@ -232,38 +276,11 @@
         table.periodic tr td.element.uncategorized {
             background-color: #e3e3e3;
         }
-
-        table.periodic tr td.element h3 {
-            margin: 30px 0 5px 0;
-            position: relative;
-            display: block;
-        }
-
-        table.periodic tr td.element h3 span.right {
-            position: absolute;
-            display: block;
-            left: 18px;
-            top: 0;
-            bottom: 0;
-            transform: scale(0.6, 1);
-        }
-
-        table.periodic tr td.element span.index {
-            display: block;
-            float: left;
-            margin: 3px 0 0 3px;
-        }
-
-        table.periodic tr td.element span.symbol {
-            display: block;
-            float: right;
-            margin: 3px 3px 0 0;
-        }
     </style>
 </head>
 
 <body>
-    <div class="uk-container uk-container-center">
+    <div class="uk-container uk-container-center" style="min-width:1220px">
         <div class="uk-grid">
             <div class="uk-width-1-1 uk-margin-top">
                 <table class="periodic">
@@ -283,7 +300,16 @@
                             <td>1</td>
                             <td data-index="1" class="element"></td>
                             <td class="col">2</td>
-                            <td colspan="10"></td>
+                            <td colspan="10" rowspan="2">
+                                <div class="uk-align-center uk-vertical-align-middle">
+                                    <div id="focus" class="element">
+                                        <span class="index" style="font-size:1.2em;">112</span>
+                                        <span class="symbol" style="font-size:1.2em;">Hg</span>
+                                        <h3 style="font-size:2em; margin: 40px 0 15px 0;">铀</h3>
+                                        <span class="quality" style="font-size:1.2em">288.33</span>
+                                    </div>
+                                </div>
+                            </td>
                             <td class="col">13</td>
                             <td class="col">14</td>
                             <td class="col">15</td>
@@ -295,7 +321,6 @@
                             <td>2</td>
                             <td data-index="3" class="element"></td>
                             <td data-index="4" class="element"></td>
-                            <td colspan="10"></td>
                             <td data-index="5" class="element"></td>
                             <td data-index="6" class="element"></td>
                             <td data-index="7" class="element"></td>
