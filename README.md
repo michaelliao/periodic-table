@@ -1,6 +1,6 @@
 # Periodic Table / 元素周期表
 
-[View in web page](https://periodic-table.itranswarp.com)
+[View in web page](https://michaelliao.github.io/periodic-table/)
 
 预览：
 
