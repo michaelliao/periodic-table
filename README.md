@@ -4,4 +4,4 @@
 
 预览：
 
-![image](https://github.com/michaelliao/PeriodicTable/raw/master/periodic_table.png)
+![image](periodic_table.png)
