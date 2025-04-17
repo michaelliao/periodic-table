@@ -2,6 +2,6 @@
 
 [View in web page](https://michaelliao.github.io/periodic-table/)
 
-预览：
+Image preview / 图片预览:
 
 ![image](periodic_table.png)
